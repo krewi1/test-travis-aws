@@ -2,16 +2,16 @@ sudo: required
 services:
   - docker
 before_install:
-  - docker build -t krewi/test-travis-aws -f ./client/Dockerfile.dev ./client
+  - docker build -t krewilone/test-travis-aws -f ./client/Dockerfile.dev ./client
 script:
-  - docker run krewi/test-travis-aws npm test -- --coverage
+  - docker run krewilone/test-travis-aws npm test -- --coverage
 after_success:
-  - docker build -t krewi/test-client ./client
-  - docker build -t krewi/test-nginx ./nginx
-  - docker build -t krewi/test-server ./server
-  - docker build -t krewi/test-worker ./worker
+  - docker build -t krewilone/test-client ./client
+  - docker build -t krewilone/test-nginx ./nginx
+  - docker build -t krewilone/test-server ./server
+  - docker build -t krewilone/test-worker ./worker
   - echo "$DOCKER_PW" | docker login -u "$DOCKER_ID" --password-stdin
-  - docker push krewi/test-client
-  - docker push krewi/test-nginx
-  - docker push krewi/test-server
-  - docker push krewi/test-worker
+  - docker push krewilone/test-client
+  - docker push krewilone/test-nginx
+  - docker push krewilone/test-server
+  - docker push krewilone/test-worker
