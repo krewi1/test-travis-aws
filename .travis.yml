@@ -4,7 +4,7 @@ services:
 before_install:
   - docker build -t krewi/test-travis-aws -f ./client/Dockerfile.dev ./client
 script:
-  - docker run krewi/test-trevis-aws npm test -- --coverage
+  - docker run krewi/test-travis-aws npm test -- --coverage
 after_success:
   - docker build -t krewi/test-client ./client
   - docker build -t krewi/test-nginx ./nginx
