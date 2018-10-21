@@ -1,0 +1,17 @@
+sudo: required
+services:
+  - docker
+before_install:
+  -docker build -t krewi/test-travis-aws ./client/Dockerfile.dev ./client
+script:
+  - docker run krewi/test-trevis-aws npm test -- --coverage
+after_success:
+  - docker build -t krewi/test-client ./client
+  - docker build -t krewi/test-nginx ./nginx
+  - docker build -t krewi/test-server ./server
+  - docker build -t krewi/test-worker ./worker
+  - echo "$DOCKER_PW" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push krewi/test-client
+  - docker push krewi/test-nginx
+  - docker push krewi/test-server
+  - docker push krewi/test-worker
