@@ -15,3 +15,15 @@ after_success:
   - docker push krewilone/test-nginx
   - docker push krewilone/test-server
   - docker push krewilone/test-worker
+deploy:
+  provider: elasticbeanstalk
+  region: us-east-2
+  app: test-docker-integration
+  env: TestDockerIntegration-env
+  bucket_name: elasticbeanstalk-us-east-2-365765397708
+  bucket_path: docker-test
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY
